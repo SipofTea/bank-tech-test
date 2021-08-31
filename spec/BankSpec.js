@@ -1,39 +1,42 @@
 describe("Bank", () => {
   var Bank = require('../src/Bank');
   var bank;
-  
+  var testTime = new Date(2012, 12, 12);
+  var testTimeMilli = 1357948800000;
+
   beforeEach( () => {
     bank = new Bank();
-    jasmine.clock().uninstall()
-    jasmine.clock().install()
   });
-  it("with balance will display current balance", () => {
-    bank.deposit(1000);
-    expect(bank.statement()).toBe(1000);
-  })
 
   it("can display balance", () => {
     expect(bank.statement()).toBe(0);
   })
 
-  it("can deposit into account", () => {
-    bank.deposit(1000);
-    expect(bank.balance).toBe(1000);
-  })
+  describe("with a deposit of 1000", () => {
+    afterEach( () => {
+      jasmine.clock().uninstall()
+    })
 
-  it("records deposit amount as credit entry", () => {
-    var baseTime = new Date(2012, 12, 12);
-    jasmine.clock().mockDate(baseTime);
-    amount = 1000
-    bank.deposit(amount);
-    expect(bank.credits).toEqual(jasmine.arrayContaining([{date: baseTime.getTime(), amount: amount}]))
-  })
+    beforeEach( () => {
+      jasmine.clock().install()
+      jasmine.clock().mockDate(testTime);
+      bank.deposit(1000);
+    });
 
-  it("records credit entry with today's timestamp (in milliseconds)", () => {
-    var baseTime = new Date(2012, 12, 12);
-    jasmine.clock().mockDate(baseTime);
-    const time = bank.time;
-    bank.deposit(1000);
-    expect(bank.credits).toEqual(jasmine.arrayContaining([{date: baseTime.getTime(), amount: 1000}]))
+    it("can deposit into account", () => {
+      expect(bank.balance).toBe(1000);
+    })
+  
+    it("with balance will display current balance", () => {
+      expect(bank.statement()).toBe(1000);
+    })
+
+    it("records deposit amount as credit entry", () => {
+      expect(bank.credits).toEqual(jasmine.arrayContaining([{date: testTimeMilli, amount: 1000}]))
+    })
+
+    it("records credit entry with today's timestamp (in milliseconds)", () => {
+      expect(bank.credits).toEqual(jasmine.arrayContaining([{date: testTimeMilli, amount: 1000}]))
+    })
   })
 })
