@@ -8,9 +8,13 @@ class Bank {
     return this.balance;
   };
 
+  returnTime() {
+    return new Date().getTime()
+  };
+
   deposit(amount) {
     this.balance += amount
-    this.credits.push({amount: amount});
+    this.credits.push({date: this.returnTime(), amount: amount});
   };
 };
 
