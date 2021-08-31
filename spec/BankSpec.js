@@ -1,8 +1,8 @@
-describe("Bank", function() {
+describe("Bank", () => {
   var Bank = require('../src/Bank');
   var bank;
   
-  beforeEach(function() {
+  beforeEach( () => {
     bank = new Bank();
   });
 

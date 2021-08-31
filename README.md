@@ -2,6 +2,8 @@
 This app aims to show banking behaviour where someone can deposit and withdraw money, and see their bank statement. It is written in JavaScript.
 
 ## Instructions
+To use the app execute ```open index.html``` in the console and open the browser console.
+
 To run tests excecute ```jasmine``` in the console.
 
 ## Specification

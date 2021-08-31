@@ -7,4 +7,4 @@ class Bank {
   };
 };
 
-module.exports = Bank;
+if (typeof module !== 'undefined') module.exports = Bank;
