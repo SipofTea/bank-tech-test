@@ -1,6 +1,7 @@
 class Bank {
   constructor() {
     this.balance = 0;
+    this.credits = [];
   };
 
   statement() {
@@ -9,6 +10,7 @@ class Bank {
 
   deposit(amount) {
     this.balance += amount
+    this.credits.push({amount: amount});
   };
 };
 
