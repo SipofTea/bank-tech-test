@@ -2,7 +2,7 @@ class Bank {
   #balance = 0;
   #paymentHistory = [];
 
-  statement() {
+  printStatement() {
     console.log("date || credit || debit || balance");
 
     if (this.#paymentHistory.length === 0) {
