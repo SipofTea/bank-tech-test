@@ -50,14 +50,12 @@ describe("Bank", () => {
     });
 
     it("shows correct statement after withdrawal", () => {
-      spyOn(console, "log");
+      const spy = spyOn(console, "log");
       bank.withdraw(500);
       bank.statement();
-      expect(console.log).toHaveBeenCalledWith(
-        "date       || credit || debit || balance"
-      );
-      expect(console.log).toHaveBeenCalledWith("12/12/2012 || 1000 || || 1000");
-      expect(console.log).toHaveBeenCalledWith("12/12/2012 || || 500 || 500");
+      expect(spy.calls.first().args).toEqual(["date       || credit || debit || balance"]);
+      expect(spy.calls.argsFor(1)).toEqual(["12/12/2012 || || 500 || 500"]);
+      expect(spy.calls.mostRecent().args).toEqual(["12/12/2012 || 1000 || || 1000"]);
     });
   });
 

@@ -12,7 +12,7 @@ class Bank {
       return;
     }
 
-    this.paymentHistory.forEach((entry) => {
+    this.paymentHistory.reverse().forEach((entry) => {
       this.printHistoryEntry(entry);
     });
   }
