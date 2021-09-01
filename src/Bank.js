@@ -8,20 +8,30 @@ class Bank {
     console.log("date       || credit || debit || balance");
     
     if (this.paymentHistory.length === 0) {
-      const time = this.returnTime();
-      const date = new Date(time).toLocaleDateString();
-      console.log(`${date} || || || 0`);
+      this.printEmptyHistory();
       return;
     }
     
     this.paymentHistory.forEach( entry => {
-      const date = new Date(entry.date).toLocaleDateString();
-      if (entry.type == "credit") {
-        console.log(`${date} || ${entry.amount} || || ${entry.balance}`);
-      } else {
-        console.log(`${date} || || ${entry.amount} || ${entry.balance}`);
-      }
+      this.printHistoryEntry(entry);
     })
+  };
+
+  printEmptyHistory(){
+    const time = this.returnTime();
+    const date = new Date(time).toLocaleDateString();
+    console.log(`${date} || || || 0`);
+  };
+
+  printHistoryEntry(entry) {
+    const date = new Date(entry.date).toLocaleDateString();
+      switch (entry.type) {
+        case "credit":
+          console.log(`${date} || ${entry.amount} || || ${entry.balance}`);
+          break;
+        case "debit":
+          console.log(`${date} || || ${entry.amount} || ${entry.balance}`);
+    }
   };
 
   returnTime() {
