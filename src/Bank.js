@@ -5,7 +5,7 @@ class Bank {
   }
 
   statement() {
-    console.log("date       || credit || debit || balance");
+    console.log("date || credit || debit || balance");
 
     if (this.paymentHistory.length === 0) {
       this.printEmptyHistory();

@@ -18,7 +18,7 @@ describe("Bank", () => {
     spyOn(console, "log");
     bank.statement();
     expect(console.log).toHaveBeenCalledWith(
-      "date       || credit || debit || balance"
+      "date || credit || debit || balance"
     );
     expect(console.log).toHaveBeenCalledWith("12/12/2012 || || || 0");
   });
@@ -44,7 +44,7 @@ describe("Bank", () => {
       spyOn(console, "log");
       bank.statement();
       expect(console.log).toHaveBeenCalledWith(
-        "date       || credit || debit || balance"
+        "date || credit || debit || balance"
       );
       expect(console.log).toHaveBeenCalledWith("12/12/2012 || 1000 || || 1000");
     });
@@ -53,7 +53,7 @@ describe("Bank", () => {
       const spy = spyOn(console, "log");
       bank.withdraw(500);
       bank.statement();
-      expect(spy.calls.first().args).toEqual(["date       || credit || debit || balance"]);
+      expect(spy.calls.first().args).toEqual(["date || credit || debit || balance"]);
       expect(spy.calls.argsFor(1)).toEqual(["12/12/2012 || || 500 || 500"]);
       expect(spy.calls.mostRecent().args).toEqual(["12/12/2012 || 1000 || || 1000"]);
     });
