@@ -1,12 +1,19 @@
 class Bank {
   constructor() {
     this.balance = 0;
-    this.credits = [];
-    this.debits = [];
+    this.paymentHistory = [];
   };
 
   statement() {
-    return this.balance;
+    console.log("date       || credit || debit || balance");
+    this.paymentHistory.forEach( entry => {
+      const date = new Date(entry.date).toLocaleDateString();
+      if (entry.type == "credit") {
+        console.log(`${date} || ${entry.amount} || || ${entry.balance}`);
+      } else {
+        console.log(`${date} || || ${entry.amount} || ${entry.balance}`);
+      }
+    })
   };
 
   returnTime() {
@@ -15,12 +22,12 @@ class Bank {
 
   deposit(amount) {
     this.balance += amount
-    this.credits.push({date: this.returnTime(), amount: amount});
+    this.paymentHistory.push({date: this.returnTime(), amount: amount, type: "credit", balance: this.balance});
   };
 
   withdraw(amount) {
     this.balance -= amount;
-    this.debits.push({date: this.returnTime(), amount: amount});
+    this.paymentHistory.push({date: this.returnTime(), amount: amount, type: "debit", balance: this.balance});
   };
 };
 
