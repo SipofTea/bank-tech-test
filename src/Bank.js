@@ -2,6 +2,7 @@ class Bank {
   constructor() {
     this.balance = 0;
     this.credits = [];
+    this.debits = [];
   };
 
   statement() {
@@ -19,6 +20,7 @@ class Bank {
 
   withdraw(amount) {
     this.balance -= amount;
+    this.debits.push({date: this.returnTime(), amount: amount});
   };
 };
 

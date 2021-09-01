@@ -49,5 +49,12 @@ describe("Bank", () => {
       bank.withdraw(1000);
       expect(bank.statement()).toBe(-1000);
     })
+    it("records withdrawal amount as debit entry", () => {
+      jasmine.clock().install()
+      jasmine.clock().mockDate(testTime);
+      bank.withdraw(1000);
+      expect(bank.debits).toEqual(jasmine.arrayContaining([{date: testTimeMilli, amount: 1000}]))
+      jasmine.clock().uninstall()
+    })
   })
 })
