@@ -1,29 +1,27 @@
 class Bank {
-  constructor() {
-    this.balance = 0;
-    this.paymentHistory = [];
-  }
+  #balance = 0;
+  #paymentHistory = []; 
 
   statement() {
     console.log("date || credit || debit || balance");
 
-    if (this.paymentHistory.length === 0) {
-      this.printEmptyHistory();
+    if (this.#paymentHistory.length === 0) {
+      this.#printEmptyHistory();
       return;
     }
 
-    this.paymentHistory.reverse().forEach((entry) => {
-      this.printHistoryEntry(entry);
+    this.#paymentHistory.reverse().forEach((entry) => {
+      this.#printHistoryEntry(entry);
     });
   }
 
-  printEmptyHistory() {
-    const time = this.returnTime();
+  #printEmptyHistory() {
+    const time = this.#returnTime();
     const date = new Date(time).toLocaleDateString();
     console.log(`${date} || || || 0`);
   }
 
-  printHistoryEntry(entry) {
+  #printHistoryEntry(entry) {
     const date = new Date(entry.date).toLocaleDateString();
     switch (entry.type) {
       case "credit":
@@ -34,31 +32,31 @@ class Bank {
     }
   }
 
-  returnTime() {
+  #returnTime() {
     return new Date().getTime();
   }
 
   deposit(amount) {
-    this.balance += amount;
-    this.paymentHistory.push({
-      date: this.returnTime(),
+    this.#balance += amount;
+    this.#paymentHistory.push({
+      date: this.#returnTime(),
       amount: amount,
       type: "credit",
-      balance: this.balance,
+      balance: this.#balance,
     });
   }
 
   withdraw(amount) {
-    if (this.balance - amount < 0) {
+    if (this.#balance - amount < 0) {
       console.log(`Sorry, you do not have enough funds in your account.`);
       return;
     }
-    this.balance -= amount;
-    this.paymentHistory.push({
-      date: this.returnTime(),
+    this.#balance -= amount
+    this.#paymentHistory.push({
+      date: this.#returnTime(),
       amount: amount,
       type: "debit",
-      balance: this.balance,
+      balance: this.#balance,
     });
   }
 }

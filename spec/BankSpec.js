@@ -1,7 +1,6 @@
 describe("Bank", () => {
   let bank;
   const testTime = new Date(2012, 11, 12);
-  const testTimeMilli = 1355270400000;
 
   afterEach(() => {
     jasmine.clock().uninstall();
@@ -27,18 +26,6 @@ describe("Bank", () => {
       bank.deposit(1000);
     });
 
-    it("deposit updates balance", () => {
-      expect(bank.balance).toBe(1000);
-    });
-
-    it("records deposit amount as credit entry with today's timestamp (in milliseconds)", () => {
-      expect(bank.paymentHistory).toEqual(
-        jasmine.arrayContaining([
-          { date: testTimeMilli, amount: 1000, type: "credit", balance: 1000 },
-        ])
-      );
-    });
-
     it("shows statement with date, deposit, and balance", () => {
       spyOn(console, "log");
       bank.statement();
@@ -52,18 +39,17 @@ describe("Bank", () => {
       const spy = spyOn(console, "log");
       bank.withdraw(500);
       bank.statement();
-      expect(spy.calls.first().args).toEqual(["date || credit || debit || balance"]);
+      expect(spy.calls.first().args).toEqual([
+        "date || credit || debit || balance",
+      ]);
       expect(spy.calls.argsFor(1)).toEqual(["12/12/2012 || || 500 || 500"]);
-      expect(spy.calls.mostRecent().args).toEqual(["12/12/2012 || 1000 || || 1000"]);
+      expect(spy.calls.mostRecent().args).toEqual([
+        "12/12/2012 || 1000 || || 1000",
+      ]);
     });
   });
 
-  describe("with a withdrawal of 1000", () => {
-    it("cannot withdraw from account to below 0", () => {
-      bank.withdraw(1000);
-      expect(bank.balance).toBe(0);
-    });
-
+  describe("when withdrawing without balance", () => {
     it("shows 'cannot withdraw message", () => {
       spyOn(console, "log");
       bank.withdraw(1000);
