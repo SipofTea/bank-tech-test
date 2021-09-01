@@ -6,6 +6,14 @@ class Bank {
 
   statement() {
     console.log("date       || credit || debit || balance");
+    
+    if (this.paymentHistory.length === 0) {
+      const time = this.returnTime();
+      const date = new Date(time).toLocaleDateString();
+      console.log(`${date} || || || 0`);
+      return;
+    }
+    
     this.paymentHistory.forEach( entry => {
       const date = new Date(entry.date).toLocaleDateString();
       if (entry.type == "credit") {
