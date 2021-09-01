@@ -62,5 +62,3 @@ class Bank {
     });
   }
 }
-
-if (typeof module !== "undefined") module.exports = Bank;

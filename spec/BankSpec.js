@@ -1,8 +1,7 @@
 describe("Bank", () => {
-  var Bank = require("../src/Bank");
-  var bank;
-  var testTime = new Date(2012, 11, 12);
-  var testTimeMilli = 1355270400000;
+  let bank;
+  const testTime = new Date(2012, 11, 12);
+  const testTimeMilli = 1355270400000;
 
   afterEach(() => {
     jasmine.clock().uninstall();
