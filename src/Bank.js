@@ -44,6 +44,10 @@ class Bank {
   };
 
   withdraw(amount) {
+    if (this.balance - amount < 0) {
+      console.log(`Sorry, you do not have enough funds in your account.`);
+      return;
+    }
     this.balance -= amount;
     this.paymentHistory.push({date: this.returnTime(), amount: amount, type: "debit", balance: this.balance});
   };

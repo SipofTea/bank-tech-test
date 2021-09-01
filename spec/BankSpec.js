@@ -26,7 +26,7 @@ describe("Bank", () => {
       bank.deposit(1000);
     });
 
-    it("can deposit into account", () => {
+    it("deposit updates balance", () => {
       expect(bank.balance).toBe(1000);
     })
 
@@ -52,21 +52,15 @@ describe("Bank", () => {
   })
 
   describe("with a withdrawal of 1000", () => {
-    beforeEach( () => {
+    it("cannot withdraw from account to below 0", () => {
       bank.withdraw(1000);
+      expect(bank.balance).toBe(0);
     });
 
-    it("can withdraw from account", () => {
-      expect(bank.balance).toBe(-1000);
-    })
-    it("with balance will display current balance", () => {
+    it("shows 'cannot withdraw message", () => {
       spyOn(console, 'log');
-      bank.statement();
-      expect(console.log).toHaveBeenCalledWith("date       || credit || debit || balance");
-      expect(console.log).toHaveBeenCalledWith("12/12/2012 || || 1000 || -1000");
-    })
-    it("records withdrawal as debit entry", () => {
-      expect(bank.paymentHistory).toEqual(jasmine.arrayContaining([{date: testTimeMilli, amount: 1000, type: "debit", balance: -1000}]));
-    })
+      bank.withdraw(1000);
+      expect(console.log).toHaveBeenCalledWith("Sorry, you do not have enough funds in your account.");
+    });
   })
 })
