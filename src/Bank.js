@@ -2,46 +2,51 @@ class Bank {
   constructor() {
     this.balance = 0;
     this.paymentHistory = [];
-  };
+  }
 
   statement() {
     console.log("date       || credit || debit || balance");
-    
+
     if (this.paymentHistory.length === 0) {
       this.printEmptyHistory();
       return;
     }
-    
-    this.paymentHistory.forEach( entry => {
-      this.printHistoryEntry(entry);
-    })
-  };
 
-  printEmptyHistory(){
+    this.paymentHistory.forEach((entry) => {
+      this.printHistoryEntry(entry);
+    });
+  }
+
+  printEmptyHistory() {
     const time = this.returnTime();
     const date = new Date(time).toLocaleDateString();
     console.log(`${date} || || || 0`);
-  };
+  }
 
   printHistoryEntry(entry) {
     const date = new Date(entry.date).toLocaleDateString();
-      switch (entry.type) {
-        case "credit":
-          console.log(`${date} || ${entry.amount} || || ${entry.balance}`);
-          break;
-        case "debit":
-          console.log(`${date} || || ${entry.amount} || ${entry.balance}`);
+    switch (entry.type) {
+      case "credit":
+        console.log(`${date} || ${entry.amount} || || ${entry.balance}`);
+        break;
+      case "debit":
+        console.log(`${date} || || ${entry.amount} || ${entry.balance}`);
     }
-  };
+  }
 
   returnTime() {
-    return new Date().getTime()
-  };
+    return new Date().getTime();
+  }
 
   deposit(amount) {
-    this.balance += amount
-    this.paymentHistory.push({date: this.returnTime(), amount: amount, type: "credit", balance: this.balance});
-  };
+    this.balance += amount;
+    this.paymentHistory.push({
+      date: this.returnTime(),
+      amount: amount,
+      type: "credit",
+      balance: this.balance,
+    });
+  }
 
   withdraw(amount) {
     if (this.balance - amount < 0) {
@@ -49,8 +54,13 @@ class Bank {
       return;
     }
     this.balance -= amount;
-    this.paymentHistory.push({date: this.returnTime(), amount: amount, type: "debit", balance: this.balance});
-  };
-};
+    this.paymentHistory.push({
+      date: this.returnTime(),
+      amount: amount,
+      type: "debit",
+      balance: this.balance,
+    });
+  }
+}
 
-if (typeof module !== 'undefined') module.exports = Bank;
+if (typeof module !== "undefined") module.exports = Bank;
