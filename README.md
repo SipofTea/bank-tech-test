@@ -1,5 +1,7 @@
 # Bank
-This app aims to show banking behaviour where someone can deposit and withdraw money, and see their bank statement. It is written in JavaScript and uses Karma with Jasmine for testing.
+This app aims to show banking behaviour where someone can deposit and withdraw money, and see their bank statement. It is written in JavaScript and uses Karma with Jasmine for testing. The project was written test first, with tests based on user behaviours. Karma was implemented to see test coverage. All methods the user shouldn't access have been made private. The program has been structured as a single class, which stores an array of all past payments. A single class approach was chosen to keep implementation simple. It can display the payments in the form of a statement.
+
+![Working App](/images/app_working.png)
 
 ## Instructions
 First run ```npm install``` in the terminal to obtain the correct packages.
