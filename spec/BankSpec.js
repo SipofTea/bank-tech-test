@@ -1,6 +1,8 @@
 describe("Bank", () => {
   let bank;
-  const testTime = new Date(2012, 11, 12);
+  const testTime1 = new Date(2012, 0, 10);
+  const testTime2 = new Date(2012, 0, 13);
+  const testTime3 = new Date(2012, 0, 14);
 
   afterEach(() => {
     jasmine.clock().uninstall();
@@ -8,7 +10,7 @@ describe("Bank", () => {
 
   beforeEach(() => {
     jasmine.clock().install();
-    jasmine.clock().mockDate(testTime);
+    jasmine.clock().mockDate(testTime1);
     bank = new Bank();
   });
 
@@ -18,7 +20,15 @@ describe("Bank", () => {
     expect(console.log).toHaveBeenCalledWith(
       "date || credit || debit || balance"
     );
-    expect(console.log).toHaveBeenCalledWith("12/12/2012 || || || 0");
+    expect(console.log).toHaveBeenCalledWith("10/01/2012 || || || 0");
+  });
+
+  it("when withdrawing without balance shows 'cannot withdraw' message", () => {
+    spyOn(console, "log");
+    bank.withdraw(1000);
+    expect(console.log).toHaveBeenCalledWith(
+      "Sorry, you do not have enough funds in your account."
+    );
   });
 
   describe("with a deposit of 1000", () => {
@@ -32,30 +42,24 @@ describe("Bank", () => {
       expect(console.log).toHaveBeenCalledWith(
         "date || credit || debit || balance"
       );
-      expect(console.log).toHaveBeenCalledWith("12/12/2012 || 1000 || || 1000");
+      expect(console.log).toHaveBeenCalledWith("10/01/2012 || 1000 || || 1000");
     });
 
-    it("shows correct statement after withdrawal", () => {
+    it("shows correct statement after deposit and withdrawal", () => {
       const spy = spyOn(console, "log");
+      jasmine.clock().mockDate(testTime2);
+      bank.deposit(2000);
+      jasmine.clock().mockDate(testTime3);
       bank.withdraw(500);
       bank.statement();
       expect(spy.calls.first().args).toEqual([
         "date || credit || debit || balance",
       ]);
-      expect(spy.calls.argsFor(1)).toEqual(["12/12/2012 || || 500 || 500"]);
+      expect(spy.calls.argsFor(1)).toEqual(["14/01/2012 || || 500 || 2500"]);
+      expect(spy.calls.argsFor(2)).toEqual(["13/01/2012 || 2000 || || 3000"]);
       expect(spy.calls.mostRecent().args).toEqual([
-        "12/12/2012 || 1000 || || 1000",
+        "10/01/2012 || 1000 || || 1000",
       ]);
-    });
-  });
-
-  describe("when withdrawing without balance", () => {
-    it("shows 'cannot withdraw message", () => {
-      spyOn(console, "log");
-      bank.withdraw(1000);
-      expect(console.log).toHaveBeenCalledWith(
-        "Sorry, you do not have enough funds in your account."
-      );
     });
   });
 });

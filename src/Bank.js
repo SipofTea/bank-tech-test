@@ -1,6 +1,6 @@
 class Bank {
   #balance = 0;
-  #paymentHistory = []; 
+  #paymentHistory = [];
 
   statement() {
     console.log("date || credit || debit || balance");
@@ -51,7 +51,7 @@ class Bank {
       console.log(`Sorry, you do not have enough funds in your account.`);
       return;
     }
-    this.#balance -= amount
+    this.#balance -= amount;
     this.#paymentHistory.push({
       date: this.#returnTime(),
       amount: amount,
