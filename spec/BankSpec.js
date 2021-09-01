@@ -39,4 +39,15 @@ describe("Bank", () => {
       expect(bank.credits).toEqual(jasmine.arrayContaining([{date: testTimeMilli, amount: 1000}]))
     })
   })
+
+  describe("with a withdrawal of 1000", () => {
+    it("can withdraw from account", () => {
+      bank.withdraw(1000);
+      expect(bank.balance).toBe(-1000);
+    })
+    it("with balance will display current balance", () => {
+      bank.withdraw(1000);
+      expect(bank.statement()).toBe(-1000);
+    })
+  })
 })

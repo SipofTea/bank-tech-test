@@ -16,6 +16,10 @@ class Bank {
     this.balance += amount
     this.credits.push({date: this.returnTime(), amount: amount});
   };
+
+  withdraw(amount) {
+    this.balance -= amount;
+  };
 };
 
 if (typeof module !== 'undefined') module.exports = Bank;
