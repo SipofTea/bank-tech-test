@@ -31,11 +31,7 @@ describe("Bank", () => {
       expect(bank.statement()).toBe(1000);
     })
 
-    it("records deposit amount as credit entry", () => {
-      expect(bank.credits).toEqual(jasmine.arrayContaining([{date: testTimeMilli, amount: 1000}]))
-    })
-
-    it("records credit entry with today's timestamp (in milliseconds)", () => {
+    it("records deposit amount as credit entry with today's timestamp (in milliseconds)", () => {
       expect(bank.credits).toEqual(jasmine.arrayContaining([{date: testTimeMilli, amount: 1000}]))
     })
   })
