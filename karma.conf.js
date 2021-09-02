@@ -14,8 +14,8 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'test-main.js',
-      { pattern: 'src/Bank.js', included: true },
-      { pattern: 'spec/BankSpec.js', included: false }
+      { pattern: 'src/*.js', included: true },
+      { pattern: 'spec/*.js', included: false }
     ],
 
     // list of files / patterns to exclude

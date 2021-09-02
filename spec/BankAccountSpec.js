@@ -11,7 +11,7 @@ describe('Bank', () => {
   beforeEach(() => {
     jasmine.clock().install()
     jasmine.clock().mockDate(testTime1)
-    bank = new Bank()
+    bank = new BankAccount()
   })
 
   it('shows statement with balance 0 when no payments have been made', () => {
