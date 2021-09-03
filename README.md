@@ -15,7 +15,7 @@ account.withdraw(amount);
 account.printStatement();
 ```
 
-To run tests execute ```karma start``` in the terminal. In the browser window that opens, click 'debug'. This will show the test results. The local terminal will output the test coverage.
+To run tests execute ```./node_modules/.bin/karma start``` in the terminal. In the browser window that opens, click 'debug'. This will show the test results. The local terminal will output the test coverage.
 
 ## Specification
 ### Requirements
