@@ -4,11 +4,11 @@ class BankAccount {
 
   printStatement() {
     console.log("date || credit || debit || balance");
-
-    if (this.#paymentHistory.length === 0) {
+    let currentHistory = this.#paymentHistory.slice();
+    if (currentHistory.length === 0) {
       this.#printEmptyHistory();
     } else {
-      this.#paymentHistory.reverse().forEach((entry) => {
+      currentHistory.reverse().forEach((entry) => {
         console.log(entry.print());
       });
     }
