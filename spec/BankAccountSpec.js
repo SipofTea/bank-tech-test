@@ -44,7 +44,7 @@ describe('Bank', () => {
       )
       expect(console.log).toHaveBeenCalledWith('10/01/2012 || 1000 || || 1000')
     })
-
+    
     it('shows correct statement after deposit and withdrawal', () => {
       const spy = spyOn(console, 'log')
       jasmine.clock().mockDate(testTime2)
@@ -60,6 +60,31 @@ describe('Bank', () => {
       expect(spy.calls.mostRecent().args).toEqual([
         '10/01/2012 || 1000 || || 1000'
       ])
+    })
+
+    it('continues to show correct statement when printed more than once.', () => {
+      const spy = spyOn(console, 'log')
+      jasmine.clock().mockDate(testTime2)
+      bank.deposit(2000)
+      jasmine.clock().mockDate(testTime3)
+      bank.withdraw(500)
+      bank.printStatement()
+      expect(spy.calls.first().args).toEqual([
+        'date || credit || debit || balance'
+      ])
+      expect(spy.calls.argsFor(1)).toEqual(['14/01/2012 || || 500 || 2500'])
+      expect(spy.calls.argsFor(2)).toEqual(['13/01/2012 || 2000 || || 3000'])
+      expect(spy.calls.mostRecent().args).toEqual([
+        '10/01/2012 || 1000 || || 1000'
+      ])
+      bank.printStatement()
+      expect(spy.calls.first().args).toEqual([
+        'date || credit || debit || balance'
+      ])
+      expect(spy.calls.argsFor(1)).toEqual(['14/01/2012 || || 500 || 2500'])
+      expect(spy.calls.argsFor(2)).toEqual(['13/01/2012 || 2000 || || 3000'])
+      expect(spy.calls.mostRecent().args).toEqual([
+        '10/01/2012 || 1000 || || 1000' ])
     })
   })
 })
